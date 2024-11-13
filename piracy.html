@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piracy Detection</title>
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-container" id="loginContainer">
+    <div class="login-card">
+    <h3 class="text-center">Login to Piracy Detection</h3>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" class="form-control" placeholder="Enter Username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Enter Password" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+  </div>
+  </div>
+
+ 
+  <div class="login-container2" id="piracyDetectionPage" style="display: none;">
+    <div class="login-card">
+    <h2 class="text-center">Piracy Detection Web Application</h2>
+
+    <div class="form-group">
+      <label for="url">Enter URL:</label>
+      <input type="text" id="url" class="form-control" placeholder="Enter URL">
+    </div>
+    <div class="form-group mt-2">
+      <label for="keyword">Enter Keyword (Movie/Show Name):</label>
+      <input type="text" id="keyword" class="form-control" placeholder="Enter keyword">
+    </div>
+    <button class="btn btn-primary mt-3" id="searchButton">Check for Piracy</button>
+
+    <div class="result mt-4" id="resultMessage"></div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+   
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username === 'user' && password === 'password123') {
+       
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('piracyDetectionPage').style.display = 'block';
+      } else {
+        alert('Invalid credentials. Please try again.');
+      }
+    });
+
+   
+    document.getElementById('searchButton').addEventListener('click', function () {
+      const url = document.getElementById('url').value;
+      const keyword = document.getElementById('keyword').value;
+      const resultMessage = document.getElementById('resultMessage');
+
+      if (!url || !keyword) {
+        resultMessage.classList.add('warning');
+        resultMessage.innerHTML = 'Please enter both URL and keyword.';
+        return;
+      }
+
+      
+      if (url.toLowerCase().includes(keyword.toLowerCase())) {
+        resultMessage.classList.add('warning');
+        resultMessage.innerHTML = `<strong>Potential piracy detected!</strong> The keyword "${keyword}" was found on the page: <a href="${url}" target="_blank">${url}</a>`;
+      } else {
+        resultMessage.classList.add('success');
+        resultMessage.innerHTML = 'No piracy detected. The content is safe.';
+      }
+    });
+  </script>
+</body>
+</html>
